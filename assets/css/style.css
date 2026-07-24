@@ -1,0 +1,291 @@
+/* ==========================================================================
+   Hanuman Chalisa Hindi — Stylesheet
+   Design tokens follow brief exactly: saffron/orange devotional palette.
+   Signature element: the "Gada Divider" (mace-inspired section break) and
+   an ambient flame-glow behind the hero illustration.
+   ========================================================================== */
+
+:root{
+  --primary:#FF6F00;
+  --primary-rgb:255,111,0;
+  --secondary:#E65100;
+  --accent:#FFD54F;
+  --bg:#FFFFFF;
+  --bg-soft:#FFF8ED;
+  --surface:#FFFFFF;
+  --text:#212121;
+  --text-muted:#5b5b5b;
+  --border:#F0E1CC;
+  --shadow:0 8px 30px rgba(230,81,0,0.10);
+  --shadow-sm:0 2px 10px rgba(230,81,0,0.08);
+  --radius:18px;
+  --radius-sm:10px;
+  --font-display:'Poppins',sans-serif;
+  --font-hindi:'Noto Sans Devanagari','Poppins',sans-serif;
+  --header-h:72px;
+}
+
+[data-theme="dark"]{
+  --bg:#181210;
+  --bg-soft:#211712;
+  --surface:#241a15;
+  --text:#F3E9DD;
+  --text-muted:#c9b8a6;
+  --border:#3a291d;
+  --shadow:0 8px 30px rgba(0,0,0,0.45);
+  --shadow-sm:0 2px 10px rgba(0,0,0,0.35);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--font-hindi);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  transition:background .3s ease,color .3s ease;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;line-height:1.25;margin:0 0 .5em}
+p{margin:0 0 1em}
+.container{max-width:1180px;margin:0 auto;padding:0 20px}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--secondary);outline-offset:2px}
+
+/* ---------- Reading progress bar ---------- */
+.progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--primary),var(--accent));z-index:1200;transition:width .1s linear}
+
+/* ---------- Header ---------- */
+.site-header{
+  position:sticky;top:0;z-index:1000;height:var(--header-h);
+  display:flex;align-items:center;
+  background:rgba(255,255,255,0.75);
+  backdrop-filter:blur(14px) saturate(160%);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  border-bottom:1px solid var(--border);
+}
+[data-theme="dark"] .site-header{background:rgba(24,18,16,0.72)}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:1.15rem;color:var(--secondary)}
+.brand .brand-mark{width:38px;height:38px;border-radius:50%;flex-shrink:0;overflow:hidden;background:var(--bg-soft);box-shadow:var(--shadow-sm)}
+.brand .brand-mark img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.nav{display:flex;align-items:center;gap:22px}
+.nav-links{display:flex;gap:20px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.nav-links a{font-size:.95rem;font-weight:600;color:var(--text);padding:6px 2px;border-bottom:2px solid transparent;transition:border-color .2s,color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--secondary);border-color:var(--primary)}
+.header-actions{display:flex;align-items:center;gap:10px}
+.icon-btn{
+  width:40px;height:40px;border-radius:50%;border:1px solid var(--border);
+  background:var(--surface);color:var(--text);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:1.05rem;transition:transform .2s,background .2s;
+}
+.icon-btn:hover{transform:translateY(-2px);background:var(--bg-soft)}
+.menu-toggle{display:none}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;justify-content:center;
+  padding:12px 22px;border-radius:999px;font-weight:600;font-family:var(--font-display);
+  cursor:pointer;border:none;font-size:.95rem;transition:transform .2s ease,box-shadow .2s ease;
+}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;box-shadow:var(--shadow-sm)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.btn-outline{background:transparent;border:1.5px solid var(--primary);color:var(--secondary)}
+.btn-outline:hover{background:var(--bg-soft)}
+.btn-ghost{background:var(--bg-soft);color:var(--secondary)}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn-sm{padding:8px 14px;font-size:.85rem;border-radius:999px}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden;padding:64px 0 90px;background:var(--bg-soft)}
+.hero::before{
+  content:"";position:absolute;inset:-20% -10% auto -10%;height:130%;
+  background:radial-gradient(circle at 30% 20%,rgba(var(--primary-rgb),0.25),transparent 60%),
+             radial-gradient(circle at 80% 60%,rgba(255,213,79,0.35),transparent 55%);
+  filter:blur(10px);animation:flameDrift 14s ease-in-out infinite alternate;
+}
+@keyframes flameDrift{0%{transform:translateY(0) scale(1)}100%{transform:translateY(20px) scale(1.05)}}
+.hero .container{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(var(--primary-rgb),0.12);color:var(--secondary);
+  padding:6px 14px;border-radius:999px;font-size:.8rem;font-weight:700;letter-spacing:.03em;margin-bottom:16px}
+.hero h1{font-size:clamp(2rem,4vw,3.2rem);color:var(--secondary)}
+.hero h1 span{color:var(--primary)}
+.hero p.lead{font-size:1.1rem;color:var(--text-muted);max-width:52ch}
+.hero-illustration{position:relative;display:flex;align-items:center;justify-content:center}
+.hero-illustration svg{width:100%;max-width:340px;filter:drop-shadow(var(--shadow))}
+.hero-illustration::after{
+  content:"";position:absolute;width:70%;height:70%;border-radius:50%;
+  background:radial-gradient(circle,rgba(var(--primary-rgb),0.35),transparent 70%);
+  z-index:-1;animation:pulseGlow 3.5s ease-in-out infinite;
+}
+@keyframes pulseGlow{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+
+/* ---------- Framed devotional photos (hero + about + prayer-page avatar) ---------- */
+.img-frame{display:block;background:var(--surface);border:1px solid var(--border);border-radius:24px;
+  padding:12px;box-shadow:var(--shadow)}
+.img-frame img{display:block;width:100%;height:auto;border-radius:16px}
+.hero-illustration .img-frame{position:relative;z-index:1;width:100%;max-width:300px;animation:floatY 5s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-avatar{width:68px;margin:0 auto 12px;padding:5px;border-radius:16px;box-shadow:var(--shadow-sm)}
+.hero-avatar img{border-radius:11px}
+.about-feature{max-width:300px;margin:0 auto}
+@media(max-width:640px){.hero-avatar{width:56px}}
+
+/* ---------- Search ---------- */
+.search-box{display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--border);
+  border-radius:999px;padding:10px 18px;margin-top:22px;max-width:460px;box-shadow:var(--shadow-sm)}
+.search-box input{border:none;background:transparent;flex:1;font-family:var(--font-hindi);font-size:1rem;color:var(--text);outline:none}
+.search-box .material-icons{color:var(--secondary)}
+
+/* ---------- Quick nav cards / grid ---------- */
+.section{padding:64px 0}
+.section-head{max-width:640px;margin:0 auto 36px;text-align:center}
+.section-head h2{font-size:clamp(1.5rem,3vw,2.1rem);color:var(--secondary)}
+.section-head p{color:var(--text-muted)}
+.grid{display:grid;gap:22px}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px;box-shadow:var(--shadow-sm);transition:transform .25s ease,box-shadow .25s ease;
+}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.card .material-icons{font-size:2rem;color:var(--primary);margin-bottom:10px}
+.card h3{font-size:1.1rem;margin-bottom:6px}
+.card p{color:var(--text-muted);font-size:.93rem;margin-bottom:0}
+.card-link{margin-top:14px;display:inline-block;font-weight:700;color:var(--secondary);font-size:.9rem}
+
+/* ---------- Gada divider (signature element) ---------- */
+.gada-divider{display:flex;align-items:center;gap:14px;margin:52px 0;color:var(--primary)}
+.gada-divider::before,.gada-divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+.gada-divider svg{width:34px;height:34px;flex-shrink:0}
+
+/* ---------- Prayer text block ---------- */
+.prayer-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
+  background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px;margin-bottom:24px;position:sticky;top:calc(var(--header-h) + 10px);z-index:50}
+.font-size-controls{display:flex;align-items:center;gap:6px}
+.prayer-text{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:36px clamp(18px,4vw,48px);box-shadow:var(--shadow-sm);text-align:center;
+}
+.prayer-text .doha{font-weight:600;color:var(--secondary);margin-bottom:22px;font-size:1.05em}
+.prayer-text .chaupai{margin-bottom:10px;font-size:1.05em}
+.prayer-text .chaupai-line{margin:0 0 8px}
+#prayer-body{font-size:1.15rem}
+
+/* ---------- TOC ---------- */
+.page-layout{display:grid;grid-template-columns:220px 1fr;gap:36px;align-items:start}
+.toc{position:sticky;top:calc(var(--header-h) + 20px);background:var(--bg-soft);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:18px}
+.toc h4{font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;color:var(--secondary);margin-bottom:10px}
+.toc ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.toc a{font-size:.88rem;color:var(--text-muted)}
+.toc a:hover{color:var(--secondary)}
+
+/* ---------- FAQ ---------- */
+.faq-item{border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:12px;overflow:hidden;background:var(--surface)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 20px;cursor:pointer;font-weight:600;background:none;border:none;width:100%;text-align:left;color:var(--text);font-family:var(--font-hindi);font-size:1rem}
+.faq-q .material-icons{transition:transform .25s}
+.faq-item.open .faq-q .material-icons{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 20px;color:var(--text-muted)}
+.faq-item.open .faq-a{max-height:400px;padding-bottom:18px}
+
+/* ---------- Testimonials ---------- */
+.testimonial{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm)}
+.testimonial .stars{color:var(--accent);margin-bottom:8px}
+.testimonial .who{margin-top:14px;font-weight:700;color:var(--secondary);font-size:.9rem}
+
+/* ---------- Ad slots ---------- */
+.ad-slot{
+  border:1px dashed var(--border);border-radius:var(--radius-sm);background:var(--bg-soft);
+  color:var(--text-muted);display:flex;align-items:center;justify-content:center;
+  min-height:100px;font-size:.8rem;letter-spacing:.03em;margin:32px 0;text-transform:uppercase;
+}
+.ad-slot.tall{min-height:250px}
+.ad-slot.wide{min-height:90px}
+
+/* ---------- Newsletter ---------- */
+.newsletter{background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:var(--radius);padding:48px;color:#fff;text-align:center}
+.newsletter h2{color:#fff}
+.newsletter form{display:flex;gap:10px;max-width:420px;margin:20px auto 0;flex-wrap:wrap;justify-content:center}
+.newsletter input[type=email]{flex:1;min-width:220px;padding:12px 18px;border-radius:999px;border:none;font-family:var(--font-hindi)}
+.newsletter .btn-primary{background:#fff;color:var(--secondary)}
+.newsletter small{opacity:.85;display:block;margin-top:10px}
+
+/* ---------- Blog cards ---------- */
+.blog-card{display:flex;flex-direction:column;height:100%}
+.blog-card .tag{display:inline-block;background:var(--bg-soft);color:var(--secondary);font-size:.72rem;font-weight:700;
+  padding:4px 10px;border-radius:999px;margin-bottom:10px;width:fit-content}
+.blog-meta{font-size:.8rem;color:var(--text-muted);margin-top:auto;padding-top:10px}
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb{font-size:.85rem;color:var(--text-muted);padding:16px 0}
+.breadcrumb a{color:var(--secondary);font-weight:600}
+.breadcrumb span{margin:0 6px}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--bg-soft);border-top:1px solid var(--border);padding:56px 0 24px;margin-top:70px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.footer-grid h4{font-size:.95rem;color:var(--secondary);margin-bottom:14px}
+.footer-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.footer-grid a{color:var(--text-muted);font-size:.9rem}
+.footer-grid a:hover{color:var(--secondary)}
+.footer-bottom{border-top:1px solid var(--border);margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;font-size:.82rem;color:var(--text-muted)}
+
+/* ---------- Back to top ---------- */
+.back-to-top{
+  position:fixed;bottom:26px;right:26px;width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);z-index:900;
+  opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .25s,transform .25s;
+}
+.back-to-top.show{opacity:1;transform:translateY(0);pointer-events:auto}
+
+/* ---------- 404 ---------- */
+.error-page{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 20px}
+.error-page .code{font-family:var(--font-display);font-size:6rem;font-weight:800;color:var(--primary);line-height:1}
+
+/* ---------- Contact form ---------- */
+.contact-form{display:grid;gap:16px;max-width:640px}
+.contact-form label{font-weight:600;font-size:.9rem;display:block;margin-bottom:6px}
+.contact-form input,.contact-form textarea{
+  width:100%;padding:12px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border);
+  background:var(--surface);color:var(--text);font-family:var(--font-hindi);font-size:1rem;
+}
+.contact-form textarea{min-height:140px;resize:vertical}
+
+/* ---------- Utility ---------- */
+.text-center{text-align:center}
+.mt-0{margin-top:0}
+.muted{color:var(--text-muted)}
+.tag-pill{display:inline-block;background:var(--bg-soft);color:var(--secondary);font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:999px}
+
+/* ---------- Responsive ---------- */
+@media (max-width:960px){
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:repeat(2,1fr)}
+  .page-layout{grid-template-columns:1fr}
+  .toc{position:static}
+  .hero .container{grid-template-columns:1fr}
+  .hero-illustration{order:-1}
+  .footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:680px){
+  .nav-links{position:fixed;top:var(--header-h);left:0;right:0;background:var(--surface);flex-direction:column;
+    padding:18px 20px;border-bottom:1px solid var(--border);transform:translateY(-130%);transition:transform .25s ease;gap:14px;z-index:999}
+  .nav-links.open{transform:translateY(0)}
+  .menu-toggle{display:flex}
+  .grid-4,.grid-3,.grid-2{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .prayer-toolbar{position:static}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+}
