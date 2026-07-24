@@ -92,7 +92,10 @@ def head(title, description, canonical_path, keywords="", schema_extra="", og_im
 <meta name="keywords" content="{keywords}">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="{canonical}">
-<link rel="icon" type="image/png" href="{BASE_PATH}/assets/favicon/favicon.png">
+<link rel="icon" type="image/svg+xml" href="{BASE_PATH}/assets/favicon/favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="{BASE_PATH}/assets/favicon/favicon-96x96.png">
+<link rel="shortcut icon" href="{BASE_PATH}/assets/favicon/favicon.ico">
+<link rel="apple-touch-icon" href="{BASE_PATH}/assets/favicon/apple-touch-icon.png">
 <link rel="manifest" href="{BASE_PATH}/manifest.json">
 <meta name="theme-color" content="#FF6F00">
 
@@ -125,7 +128,7 @@ def org_schema():
   "@type": "Organization",
   "name": "{SITE_NAME}",
   "url": "{SITE}/",
-  "logo": "{SITE}/assets/favicon/favicon.png",
+  "logo": "{SITE}/assets/favicon/web-app-manifest-512x512.png",
   "sameAs": []
 }}
 </script>
@@ -170,7 +173,7 @@ def article_schema(headline, description, path, date="2026-01-15"):
   "headline": "{headline}",
   "description": "{description}",
   "author": {{"@type":"Organization","name":"{SITE_NAME}"}},
-  "publisher": {{"@type":"Organization","name":"{SITE_NAME}","logo":{{"@type":"ImageObject","url":"{SITE}/assets/favicon/favicon.png"}}}},
+  "publisher": {{"@type":"Organization","name":"{SITE_NAME}","logo":{{"@type":"ImageObject","url":"{SITE}/assets/favicon/web-app-manifest-512x512.png"}}}},
   "datePublished": "{date}",
   "dateModified": "{date}",
   "mainEntityOfPage": "{SITE}{path}"
