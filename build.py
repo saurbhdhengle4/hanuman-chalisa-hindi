@@ -85,6 +85,7 @@ def devotional_photo(name, alt, css_class="img-frame", width=800, height=None, l
 def head(title, description, canonical_path, keywords="", schema_extra="", og_image="/assets/images/og-default.jpg"):
     canonical = SITE + canonical_path
     return f'''<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="{ADSENSE_CLIENT}">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
