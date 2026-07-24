@@ -6,8 +6,8 @@ pages stay consistent. Run: python3 build.py
 """
 import os, re
 
-BASE_PATH = "/hanuman-chalisa-hindi"        # <-- GitHub Pages project subpath; set to "" once served from a domain root
-SITE = "https://saurbhdhengle4.github.io" + BASE_PATH   # <-- change to your real domain (and BASE_PATH to "") before pointing a custom domain here
+BASE_PATH = ""                              # <-- served from a domain root (Netlify); set to a "/repo-name" prefix only for a GitHub Pages project site
+SITE = "https://boisterous-lollipop-a076ad.netlify.app"   # <-- update to your real custom domain once one is pointed at Netlify
 SITE_NAME = "Hanuman Chalisa Hindi"
 ADSENSE_CLIENT = "ca-pub-1782498878685450"
 ROOT = os.path.dirname(os.path.abspath(__file__))

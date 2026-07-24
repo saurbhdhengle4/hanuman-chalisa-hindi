@@ -2,15 +2,15 @@
   "name": "Hanuman Chalisa Hindi",
   "short_name": "Hanuman Chalisa",
   "description": "हनुमान चालीसा, बजरंग बाण, हनुमान अष्टक, संकट मोचन, हनुमान आरती और हनुमान मंत्र हिंदी में",
-  "start_url": "/hanuman-chalisa-hindi/",
-  "scope": "/hanuman-chalisa-hindi/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#FF6F00",
   "lang": "hi",
   "icons": [
-    { "src": "/hanuman-chalisa-hindi/assets/favicon/favicon-96x96.png", "sizes": "96x96", "type": "image/png" },
-    { "src": "/hanuman-chalisa-hindi/assets/favicon/web-app-manifest-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "/hanuman-chalisa-hindi/assets/favicon/web-app-manifest-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "/assets/favicon/favicon-96x96.png", "sizes": "96x96", "type": "image/png" },
+    { "src": "/assets/favicon/web-app-manifest-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/favicon/web-app-manifest-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
