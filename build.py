@@ -6,7 +6,8 @@ pages stay consistent. Run: python3 build.py
 """
 import os, re
 
-SITE = "https://hanumanchalisahindi.com"   # <-- change to your real domain before deploy
+BASE_PATH = "/hanuman-chalisa-hindi"        # <-- GitHub Pages project subpath; set to "" once served from a domain root
+SITE = "https://saurbhdhengle4.github.io" + BASE_PATH   # <-- change to your real domain (and BASE_PATH to "") before pointing a custom domain here
 SITE_NAME = "Hanuman Chalisa Hindi"
 ADSENSE_CLIENT = "ca-pub-1782498878685450"
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -77,8 +78,8 @@ def devotional_photo(name, alt, css_class="img-frame", width=800, height=None, l
     dims = f' width="{width}"' + (f' height="{height}"' if height else "")
     fp = f' fetchpriority="{fetchpriority}"' if fetchpriority else ""
     return f'''<picture class="{css_class}">
-  <source srcset="/assets/images/{name}.webp" type="image/webp">
-  <img src="/assets/images/{name}.jpg" alt="{alt}"{dims} loading="{loading}"{fp}>
+  <source srcset="{BASE_PATH}/assets/images/{name}.webp" type="image/webp">
+  <img src="{BASE_PATH}/assets/images/{name}.jpg" alt="{alt}"{dims} loading="{loading}"{fp}>
 </picture>'''
 
 def head(title, description, canonical_path, keywords="", schema_extra="", og_image="/assets/images/og-default.jpg"):
@@ -91,8 +92,8 @@ def head(title, description, canonical_path, keywords="", schema_extra="", og_im
 <meta name="keywords" content="{keywords}">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="{canonical}">
-<link rel="icon" type="image/png" href="/assets/favicon/favicon.png">
-<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/png" href="{BASE_PATH}/assets/favicon/favicon.png">
+<link rel="manifest" href="{BASE_PATH}/manifest.json">
 <meta name="theme-color" content="#FF6F00">
 
 <!-- Open Graph -->
@@ -114,7 +115,7 @@ def head(title, description, canonical_path, keywords="", schema_extra="", og_im
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="{BASE_PATH}/assets/css/style.css">
 {schema_extra}'''
 
 def org_schema():
@@ -180,12 +181,12 @@ def header_html(active_path):
     links = []
     for href, label in NAV:
         cls = ' class="active"' if href == active_path else ''
-        links.append(f'<li><a href="{href}"{cls}>{label}</a></li>')
+        links.append(f'<li><a href="{BASE_PATH}{href}"{cls}>{label}</a></li>')
     return f'''<div class="progress-bar" id="progress-bar"></div>
 <header class="site-header">
   <div class="container">
-    <a href="/" class="brand" aria-label="{SITE_NAME} home">
-      <span class="brand-mark"><img src="/assets/images/hanuman-profile-crown.webp" alt="" width="38" height="38"></span> {SITE_NAME}
+    <a href="{BASE_PATH}/" class="brand" aria-label="{SITE_NAME} home">
+      <span class="brand-mark"><img src="{BASE_PATH}/assets/images/hanuman-profile-crown.webp" alt="" width="38" height="38"></span> {SITE_NAME}
     </a>
     <nav class="nav" aria-label="Primary">
       <ul class="nav-links" id="nav-links">
@@ -206,14 +207,14 @@ def header_html(active_path):
 def footer_html():
     cols = ""
     for title, links in FOOTER_COLS.items():
-        items = "".join(f'<li><a href="{href}">{label}</a></li>' for href, label in links)
+        items = "".join(f'<li><a href="{BASE_PATH}{href}">{label}</a></li>' for href, label in links)
         cols += f'<div><h4>{title}</h4><ul>{items}</ul></div>'
     return f'''<footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <div>
         <div class="brand" style="margin-bottom:10px">
-          <span class="brand-mark"><img src="/assets/images/hanuman-profile-crown.webp" alt="" width="38" height="38"></span> {SITE_NAME}
+          <span class="brand-mark"><img src="{BASE_PATH}/assets/images/hanuman-profile-crown.webp" alt="" width="38" height="38"></span> {SITE_NAME}
         </div>
         <p class="muted" style="max-width:32ch">हनुमान चालीसा, बजरंग बाण, हनुमान अष्टक और संकट मोचन — शुद्ध हिंदी में, हर भक्त के लिए।</p>
       </div>
@@ -229,15 +230,15 @@ def footer_html():
   <span class="material-icons" aria-hidden="true">arrow_upward</span>
 </button>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-<script src="/assets/js/main.js"></script>'''
+<script src="{BASE_PATH}/assets/js/main.js"></script>'''
 
 def breadcrumb_html(items):
     # items list of (name, path) excluding home; home always first
-    crumbs = ['<a href="/">होम</a>']
+    crumbs = [f'<a href="{BASE_PATH}/">होम</a>']
     for i, (name, path) in enumerate(items):
         crumbs.append('<span>/</span>')
         if path:
-            crumbs.append(f'<a href="{path}">{name}</a>')
+            crumbs.append(f'<a href="{BASE_PATH}{path}">{name}</a>')
         else:
             crumbs.append(f'<span aria-current="page">{name}</span>')
     return f'<nav class="breadcrumb container" aria-label="Breadcrumb">{"".join(crumbs)}</nav>'

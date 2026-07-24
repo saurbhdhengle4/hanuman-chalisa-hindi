@@ -33,7 +33,7 @@ simple_page(
       <li>हर उम्र के भक्तों के लिए सुलभ पठन अनुभव</li>
       <li>निःशुल्क, बिना किसी शुल्क के सामग्री प्रदान करना</li>
     </ul>
-    <p>यदि आपके पास कोई सुझाव है, तो कृपया हमारे <a href="/contact/">संपर्क पृष्ठ</a> के माध्यम से हमसे जुड़ें।</p>''',
+    <p>यदि आपके पास कोई सुझाव है, तो कृपया हमारे <a href="{BASE_PATH}/contact/">संपर्क पृष्ठ</a> के माध्यम से हमसे जुड़ें।</p>''',
     keywords="about hanuman chalisa hindi, about us", active="/about/"
 )
 
@@ -55,7 +55,7 @@ simple_page("/contact/", "Contact Us | Hanuman Chalisa Hindi",
 simple_page("/privacy-policy/", "Privacy Policy | Hanuman Chalisa Hindi",
     "Hanuman Chalisa Hindi की गोपनीयता नीति पढ़ें — जानें हम आपकी जानकारी का उपयोग और सुरक्षा कैसे करते हैं.",
     "Privacy Policy",
-    '''<p><em>अंतिम अद्यतन: जनवरी 2026</em></p>
+    f'''<p><em>अंतिम अद्यतन: जनवरी 2026</em></p>
     <p>Hanuman Chalisa Hindi (यह वेबसाइट) आपकी गोपनीयता का सम्मान करती है। यह नीति बताती है कि हम किस प्रकार की जानकारी एकत्र करते हैं और उसका उपयोग कैसे करते हैं।</p>
     <h2>1. एकत्रित जानकारी</h2>
     <p>हम केवल वही जानकारी एकत्र करते हैं जो आप संपर्क फॉर्म या न्यूज़लेटर सब्सक्रिप्शन के माध्यम से स्वेच्छा से प्रदान करते हैं, जैसे नाम और ईमेल पता।</p>
@@ -68,7 +68,7 @@ simple_page("/privacy-policy/", "Privacy Policy | Hanuman Chalisa Hindi",
     <h2>5. नीति में बदलाव</h2>
     <p>हम समय-समय पर इस नीति को अपडेट कर सकते हैं। किसी भी बदलाव की जानकारी इसी पृष्ठ पर दी जाएगी।</p>
     <h2>संपर्क करें</h2>
-    <p>प्रश्नों के लिए <a href="/contact/">Contact Us</a> पृष्ठ पर जाएं।</p>''',
+    <p>प्रश्नों के लिए <a href="{BASE_PATH}/contact/">Contact Us</a> पृष्ठ पर जाएं।</p>''',
     keywords="privacy policy hanuman chalisa hindi", active="/privacy-policy/")
 
 # ---------------- Disclaimer ----------------
@@ -112,7 +112,7 @@ POSTS = [
 ]
 
 def blog_index():
-    cards = "".join(f'''<a class="card blog-card" href="/blog/{slug}/" data-search-item="{title}">
+    cards = "".join(f'''<a class="card blog-card" href="{BASE_PATH}/blog/{slug}/" data-search-item="{title}">
   <span class="tag">{tag}</span>
   <h3>{title}</h3><p>{desc}</p>
   <span class="blog-meta">5 मिनट पढ़ें</span>
@@ -155,13 +155,13 @@ def blog_post(slug, title, desc, tag, content_html, faqs, related):
 blog_post(
     "benefits-of-hanuman-chalisa", "हनुमान चालीसा पढ़ने के 10 अद्भुत लाभ",
     "हनुमान चालीसा के नियमित पाठ के मानसिक, आध्यात्मिक और शारीरिक लाभों की पूरी जानकारी।", "पूजा-पाठ",
-    '''<p>हनुमान चालीसा केवल एक धार्मिक पाठ नहीं, बल्कि आत्मबल और मानसिक शांति पाने का एक सरल साधन है। आइए जानते हैं इसके प्रमुख लाभ।</p>
+    f'''<p>हनुमान चालीसा केवल एक धार्मिक पाठ नहीं, बल्कि आत्मबल और मानसिक शांति पाने का एक सरल साधन है। आइए जानते हैं इसके प्रमुख लाभ।</p>
     <h2>1. मानसिक शांति</h2><p>नियमित पाठ से मन शांत होता है और तनाव में कमी आती है।</p>
     <h2>2. भय से मुक्ति</h2><p>अज्ञात भय और नकारात्मक विचारों को दूर करने में सहायक माना जाता है।</p>
     <h2>3. आत्मविश्वास में वृद्धि</h2><p>कठिन समय में साहस और आत्मबल बढ़ता है।</p>
     <h2>4. एकाग्रता में सुधार</h2><p>नियमित पाठ से ध्यान और एकाग्रता क्षमता में सुधार होता है।</p>
     <h2>5. सकारात्मक ऊर्जा</h2><p>घर में सकारात्मक वातावरण बनाए रखने में सहायक।</p>
-    <p>पूरा पाठ पढ़ने के लिए हमारा <a href="/hanuman-chalisa/">हनुमान चालीसा पृष्ठ</a> देखें।</p>''',
+    <p>पूरा पाठ पढ़ने के लिए हमारा <a href="{BASE_PATH}/hanuman-chalisa/">हनुमान चालीसा पृष्ठ</a> देखें।</p>''',
     faqs=[("क्या हनुमान चालीसा के वैज्ञानिक लाभ भी हैं?", "पाठ के दौरान गहरी सांस व एकाग्रता से मानसिक शांति मिलती है, जो तनाव कम करने में सहायक मानी जाती है।")],
     related=[("हनुमान चालीसा", "/hanuman-chalisa/", "पूर्ण पाठ पढ़ें।"),
              ("पढ़ने का सही समय", "/blog/best-time-to-read-hanuman-chalisa/", "कब पढ़ें, जानें।"),
@@ -213,8 +213,8 @@ def not_found_page():
   <h1>पृष्ठ नहीं मिला</h1>
   <p class="muted" style="max-width:44ch">क्षमा करें, आप जिस पृष्ठ को खोज रहे हैं वह उपलब्ध नहीं है। हो सकता है यह हटा दिया गया हो या पता गलत हो।</p>
   <div class="btn-row">
-    <a class="btn btn-primary" href="/">होम पेज पर जाएं</a>
-    <a class="btn btn-outline" href="/hanuman-chalisa/">हनुमान चालीसा पढ़ें</a>
+    <a class="btn btn-primary" href="{BASE_PATH}/">होम पेज पर जाएं</a>
+    <a class="btn btn-outline" href="{BASE_PATH}/hanuman-chalisa/">हनुमान चालीसा पढ़ें</a>
   </div>
 </div>'''
     html = f'''<!DOCTYPE html>

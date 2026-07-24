@@ -33,7 +33,7 @@ def faq_block(qa_pairs, heading="अक्सर पूछे जाने व�
 
 def related_articles(items):
     """items: list of (title, path, blurb)"""
-    cards = "".join(f'''<a class="card" href="{path}" data-search-item="{title}">
+    cards = "".join(f'''<a class="card" href="{BASE_PATH}{path}" data-search-item="{title}">
   <span class="material-icons" aria-hidden="true">auto_stories</span>
   <h3>{title}</h3><p>{blurb}</p>
 </a>''' for title, path, blurb in items)
@@ -271,7 +271,7 @@ def home_page():
         ("sankat-mochan/", "संकट मोचन स्तोत्र", "shield", "संस्कृत में पवित्र स्तोत्र"),
         ("hanuman-mantras/", "हनुमान मंत्र", "self_improvement", "शक्तिशाली बीज व रक्षा मंत्र"),
     ]
-    cards = "".join(f'''<a class="card" href="/{href}" data-search-item="{title} {desc}">
+    cards = "".join(f'''<a class="card" href="{BASE_PATH}/{href}" data-search-item="{title} {desc}">
   <span class="material-icons" aria-hidden="true">{icon}</span>
   <h3>{title}</h3><p>{desc}</p>
   <span class="card-link">पढ़ें &rarr;</span>
@@ -296,7 +296,7 @@ def home_page():
         ("मंगलवार को पूरा परिवार मिलकर यहीं से आरती पढ़ता है। बहुत सुंदर वेबसाइट।", "अजय पटेल"),
     ])
 
-    popular_posts = "".join(f'''<a class="card blog-card" href="{href}" data-search-item="{t}">
+    popular_posts = "".join(f'''<a class="card blog-card" href="{BASE_PATH}{href}" data-search-item="{t}">
   <span class="tag">ब्लॉग</span>
   <h3>{t}</h3><p>{d}</p>
   <span class="blog-meta">5 मिनट पढ़ें</span>
@@ -317,8 +317,8 @@ def home_page():
         <input type="text" id="site-search" placeholder="जैसे: बजरंग बाण, आरती..." aria-label="Search prayers">
       </div>
       <div class="btn-row">
-        <a class="btn btn-primary" href="/hanuman-chalisa/">हनुमान चालीसा पढ़ें</a>
-        <a class="btn btn-outline" href="/blog/">ब्लॉग पढ़ें</a>
+        <a class="btn btn-primary" href="{BASE_PATH}/hanuman-chalisa/">हनुमान चालीसा पढ़ें</a>
+        <a class="btn btn-outline" href="{BASE_PATH}/blog/">ब्लॉग पढ़ें</a>
       </div>
     </div>
     <div class="hero-illustration">{devotional_photo("hero-hanuman-blessing", "भगवान हनुमान जी आशीर्वाद मुद्रा में, चारों ओर राम-नाम की आभा", width=736, height=1104, loading="eager", fetchpriority="high")}</div>

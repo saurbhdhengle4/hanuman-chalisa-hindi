@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hanumanchalisahindi.com/sitemap.xml
+Sitemap: https://saurbhdhengle4.github.io/hanuman-chalisa-hindi/sitemap.xml
