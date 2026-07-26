@@ -135,13 +135,20 @@ blog_index()
 
 def blog_post(slug, title, desc, tag, content_html, faqs, related):
     path = f"/blog/{slug}/"
+    # Drop the in-article ad after the first paragraph rather than above
+    # all content, so it reads as in-article rather than pre-content.
+    split_at = content_html.find("</p>")
+    if split_at != -1:
+        split_at += len("</p>")
+        content_with_ad = content_html[:split_at] + ad("wide") + content_html[split_at:]
+    else:
+        content_with_ad = ad("wide") + content_html
     body = f'''<article class="section" style="padding-top:24px">
   <div class="container" style="max-width:820px">
     <span class="tag-pill">{tag}</span>
     <h1 style="margin-top:14px">{title}</h1>
     <p class="muted">5 मिनट पढ़ें &middot; अद्यतन: जनवरी 2026</p>
-    {ad("wide")}
-    {content_html}
+    {content_with_ad}
     {gada()}
   </div>
 </article>

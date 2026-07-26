@@ -8,22 +8,29 @@
   /* ---------- Theme toggle ---------- */
   var root = document.documentElement;
   var THEME_KEY = "hcx-theme";
-  function applyTheme(t){
+  function applyTheme(t, animateBtn){
     if(t === "dark"){ root.setAttribute("data-theme","dark"); }
     else { root.removeAttribute("data-theme"); }
     var btn = document.getElementById("theme-toggle");
-    if(btn){ btn.innerHTML = t === "dark" ? '<span class="material-icons" aria-hidden="true">light_mode</span>' : '<span class="material-icons" aria-hidden="true">dark_mode</span>'; }
+    if(btn){
+      btn.innerHTML = t === "dark" ? '<span class="material-icons" aria-hidden="true">light_mode</span>' : '<span class="material-icons" aria-hidden="true">dark_mode</span>';
+      if(animateBtn){
+        btn.classList.remove("spin");
+        void btn.offsetWidth; /* restart animation */
+        btn.classList.add("spin");
+      }
+    }
   }
   var savedTheme = null;
   try{ savedTheme = localStorage.getItem(THEME_KEY); }catch(e){}
   if(!savedTheme && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches){ savedTheme = "dark"; }
-  applyTheme(savedTheme);
+  applyTheme(savedTheme, false);
   document.addEventListener("click", function(e){
     var btn = e.target.closest("#theme-toggle");
     if(!btn) return;
     var current = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
     var next = current === "dark" ? "light" : "dark";
-    applyTheme(next);
+    applyTheme(next, true);
     try{ localStorage.setItem(THEME_KEY, next); }catch(err){}
   });
 
@@ -191,6 +198,54 @@
     var msg = form.querySelector(".form-msg");
     if(msg) msg.textContent = "धन्यवाद! आपका संदेश प्राप्त हो गया है। हम जल्द ही संपर्क करेंगे।";
     form.reset();
+  });
+
+  /* ---------- Scroll reveal (fade + slide-in) ----------
+     .reveal is only ever added here, in JS — so if this never runs
+     (no JS, older browser, reduced motion) content stays fully visible.
+     Scoped to small decorative elements only (cards/testimonials/newsletter)
+     — never whole .section blocks or .prayer-text, so a slow/failed
+     IntersectionObserver callback (print, full-page screenshot/crawler
+     capture before the browser fires it) can never blank out real content.
+     A timed fallback also force-reveals everything as a safety net. */
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(!reduceMotion && "IntersectionObserver" in window){
+    var revealTargets = document.querySelectorAll(".card, .testimonial, .newsletter");
+    if(revealTargets.length){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add("in-view");
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+      revealTargets.forEach(function(el, i){
+        el.classList.add("reveal");
+        el.style.transitionDelay = Math.min((i % 6) * 60, 240) + "ms";
+        io.observe(el);
+      });
+      setTimeout(function(){
+        revealTargets.forEach(function(el){ el.classList.add("in-view"); });
+      }, 1800);
+    }
+  }
+
+  /* ---------- Mobile TOC bottom-sheet (long prayer pages) ---------- */
+  document.addEventListener("click", function(e){
+    var toc = document.getElementById("page-toc");
+    if(!toc) return;
+    var fab = e.target.closest("#toc-fab");
+    var closeBtn = e.target.closest("#toc-close");
+    var tocLink = e.target.closest("#page-toc a");
+    if(fab){
+      var isOpen = toc.classList.toggle("open");
+      fab.setAttribute("aria-expanded", String(isOpen));
+    } else if(closeBtn || tocLink){
+      toc.classList.remove("open");
+      var fabBtn = document.getElementById("toc-fab");
+      if(fabBtn) fabBtn.setAttribute("aria-expanded", "false");
+    }
   });
 
 })();

@@ -93,6 +93,8 @@ def head(title, description, canonical_path, keywords="", schema_extra="", og_im
 <meta name="keywords" content="{keywords}">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="{canonical}">
+<link rel="alternate" hreflang="hi" href="{canonical}">
+<link rel="alternate" hreflang="x-default" href="{canonical}">
 <link rel="icon" type="image/svg+xml" href="{BASE_PATH}/assets/favicon/favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="{BASE_PATH}/assets/favicon/favicon-96x96.png">
 <link rel="shortcut icon" href="{BASE_PATH}/assets/favicon/favicon.ico">
@@ -208,6 +210,28 @@ def header_html(active_path):
   </div>
 </header>'''
 
+def embers_html():
+    """Lightweight CSS-only floating ember particles for the hero flame glow
+    (opacity/transform keyframes only — cheap, no canvas/JS-per-frame cost)."""
+    spans = "".join(f'<span class="ember e{i}"></span>' for i in range(1, 7))
+    return f'<div class="embers" aria-hidden="true">{spans}</div>'
+
+MOBILE_QUICK_LINKS = [
+    ("/hanuman-chalisa/", "menu_book", "चालीसा"),
+    ("/bajrang-baan/", "flash_on", "बजरंग बाण"),
+    ("/hanuman-aarti/", "local_fire_department", "आरती"),
+    ("/hanuman-mantras/", "self_improvement", "मंत्र"),
+]
+
+def mobile_quickbar_html():
+    """Sticky bottom quick-access bar (mobile only, hidden via CSS on
+    desktop) so the most-read prayers are always one tap away."""
+    links = "".join(
+        f'<a href="{BASE_PATH}{href}"><span class="material-icons" aria-hidden="true">{icon}</span><span>{label}</span></a>'
+        for href, icon, label in MOBILE_QUICK_LINKS
+    )
+    return f'<nav class="mobile-quickbar" aria-label="त्वरित पाठ पहुंच">{links}</nav>'
+
 def footer_html():
     cols = ""
     for title, links in FOOTER_COLS.items():
@@ -230,6 +254,7 @@ def footer_html():
     </div>
   </div>
 </footer>
+{mobile_quickbar_html()}
 <button class="back-to-top" id="back-to-top" aria-label="Back to top">
   <span class="material-icons" aria-hidden="true">arrow_upward</span>
 </button>
@@ -272,10 +297,21 @@ def write(rel_path, content):
     print("wrote", rel_path)
 
 def ad(kind="wide"):
-    # AdSense placeholder banners are disabled until a publisher ID is added
-    # (see README "Before going live" step 3) — re-enable by restoring the
-    # <div class="ad-slot"> markup here once real <ins> snippets are ready.
-    return ''
+    """Reserved AdSense container — real publisher ID, placeholder ad-unit
+    slot ID (create real ad units in the AdSense dashboard and paste the
+    resulting data-ad-slot value in below; nothing else needs to change)."""
+    return f'''<div class="ad-slot {kind}">
+  <span class="ad-slot-label">विज्ञापन · Advertisement</span>
+  <!-- TODO: replace data-ad-slot with your real AdSense ad unit ID
+       (AdSense dashboard → Ads → By ad unit → Display ads → Create) -->
+  <ins class="adsbygoogle"
+       style="display:block;width:100%"
+       data-ad-client="{ADSENSE_CLIENT}"
+       data-ad-slot="0000000000"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({{}});</script>
+</div>'''
 
 def gada():
     return f'<div class="gada-divider">{gada_svg()}</div>'

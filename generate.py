@@ -49,6 +49,7 @@ def prayer_page(slug, title_hi, title_en, meta_desc, keywords, prayer_html, intr
                  benefits, how_to_read, best_time, importance, faqs, related, date="2026-01-10"):
     path = f"/{slug}/"
     body = f'''<section class="hero" style="padding:40px 0 30px">
+  {embers_html()}
   <div class="container" style="grid-template-columns:1fr;text-align:center">
     <div>
       {devotional_photo("hanuman-profile-crown", "भगवान हनुमान जी का मुकुट सहित चित्र", css_class="img-frame hero-avatar", width=736, height=1308)}
@@ -60,8 +61,11 @@ def prayer_page(slug, title_hi, title_en, meta_desc, keywords, prayer_html, intr
 <div class="container">
 {ad("wide")}
 <div class="page-layout">
-  <aside class="toc" aria-label="Table of contents">
-    <h4>इस पेज में</h4>
+  <aside class="toc" aria-label="Table of contents" id="page-toc">
+    <div class="toc-head">
+      <h4>इस पेज में</h4>
+      <button class="toc-close" id="toc-close" aria-label="बंद करें"><span class="material-icons" aria-hidden="true">close</span></button>
+    </div>
     <ul>
       <li><a href="#prayer-body">पूर्ण पाठ</a></li>
       <li><a href="#benefits">लाभ</a></li>
@@ -71,6 +75,9 @@ def prayer_page(slug, title_hi, title_en, meta_desc, keywords, prayer_html, intr
       <li><a href="#faq">FAQ</a></li>
     </ul>
   </aside>
+  <button class="toc-fab" id="toc-fab" aria-expanded="false" aria-controls="page-toc">
+    <span class="material-icons" aria-hidden="true">list</span> पढ़ें
+  </button>
   <div>
     {prayer_toolbar()}
     <article class="prayer-text">
@@ -271,11 +278,11 @@ def home_page():
         ("sankat-mochan/", "संकट मोचन स्तोत्र", "shield", "संस्कृत में पवित्र स्तोत्र"),
         ("hanuman-mantras/", "हनुमान मंत्र", "self_improvement", "शक्तिशाली बीज व रक्षा मंत्र"),
     ]
-    cards = "".join(f'''<a class="card" href="{BASE_PATH}/{href}" data-search-item="{title} {desc}">
+    cards = "".join(f'''<a class="card{' featured' if i == 0 else ''}" href="{BASE_PATH}/{href}" data-search-item="{title} {desc}">
   <span class="material-icons" aria-hidden="true">{icon}</span>
   <h3>{title}</h3><p>{desc}</p>
   <span class="card-link">पढ़ें &rarr;</span>
-</a>''' for href, title, icon, desc in quick_nav)
+</a>''' for i, (href, title, icon, desc) in enumerate(quick_nav))
 
     benefits_cards = "".join(f'''<div class="card">
   <span class="material-icons">{icon}</span><h3>{t}</h3><p>{d}</p>
@@ -307,6 +314,7 @@ def home_page():
     ])
 
     body = f'''<section class="hero">
+  {embers_html()}
   <div class="container">
     <div>
       <span class="hero-eyebrow"><span class="material-icons" style="font-size:1rem">auto_awesome</span> जय श्री हनुमान</span>
@@ -317,7 +325,7 @@ def home_page():
         <input type="text" id="site-search" placeholder="जैसे: बजरंग बाण, आरती..." aria-label="Search prayers">
       </div>
       <div class="btn-row">
-        <a class="btn btn-primary" href="{BASE_PATH}/hanuman-chalisa/">हनुमान चालीसा पढ़ें</a>
+        <a class="btn btn-primary btn-glow" href="{BASE_PATH}/hanuman-chalisa/">हनुमान चालीसा पढ़ें</a>
         <a class="btn btn-outline" href="{BASE_PATH}/blog/">ब्लॉग पढ़ें</a>
       </div>
     </div>
@@ -330,7 +338,7 @@ def home_page():
 <section class="section" id="prayers">
   <div class="container">
     <div class="section-head"><h2>सभी पवित्र पाठ</h2><p>जिस भी प्रार्थना की आपको तलाश है, उसे नीचे से चुनें</p></div>
-    <div class="grid grid-3">{cards}</div>
+    <div class="grid grid-bento">{cards}</div>
     <p id="search-no-results" style="display:none;text-align:center;color:var(--text-muted);margin-top:20px">कोई परिणाम नहीं मिला। कृपया कोई अन्य शब्द आज़माएं।</p>
   </div>
 </section>
@@ -410,7 +418,7 @@ def mantras_page():
   <p class="prayer-text" style="padding:14px 16px;font-weight:600;color:var(--secondary);box-shadow:none;margin:10px 0">{mantra}</p>
   <p>{meaning}</p>
 </div>''' for name, mantra, meaning in MANTRAS)
-    body = f'''<section class="hero" style="padding:40px 0 30px"><div class="container" style="grid-template-columns:1fr;text-align:center">
+    body = f'''<section class="hero" style="padding:40px 0 30px">{embers_html()}<div class="container" style="grid-template-columns:1fr;text-align:center">
 <div>{devotional_photo("hanuman-namaskar-ram", "भगवान हनुमान जी राम-नाम जाप की मुद्रा में", css_class="img-frame hero-avatar", width=736, height=1308)}
 <span class="hero-eyebrow"><span class="material-icons" style="font-size:1rem">self_improvement</span> मंत्र संग्रह</span>
 <h1>हनुमान मंत्र</h1>
